@@ -4,6 +4,7 @@
     import { Search, User, ShoppingCart, ChevronDown } from "lucide-react";
     import logoAsset from "../assets/ligo-logo.svg";
     import helmetAsset from "../assets/helmet.svg";
+    import { useRouter } from "next/navigation";
 
     type Lang = "en" | "id" | "de";
 
@@ -60,11 +61,11 @@
     lang: Lang;
     setLang: React.Dispatch<React.SetStateAction<Lang>>;
     };
-
     export default function LigoHero({lang, setLang}:HeroProps) {;
     const [slideIdx, setSlideIdx] = useState(0);
     const [langOpen, setLangOpen] = useState(false);
     const t = translations[lang];
+    const router = useRouter();
     useEffect(() => {
         const id = setInterval(() => setSlideIdx((i) => (i + 1) % t.slides.length), 3800);
         return () => clearInterval(id);
@@ -217,7 +218,7 @@
             </motion.div>
 
             <motion.div variants={fadeUp} initial="hidden" animate="show" custom={3} className="mt-12">
-                <button className="rounded-md bg-[#1B763D] px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#155f30] hover:shadow-md active:translate-y-px">
+                <button onClick={() => router.push("/builder")} className="rounded-md bg-[#1B763D] px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#155f30] hover:shadow-md active:translate-y-px">
                 {t.cta}
                 </button>
             </motion.div>
